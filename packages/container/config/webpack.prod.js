@@ -1,7 +1,7 @@
 const { merge } = require("webpack-merge");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
-const commonConfig = require("./webpack.common");
-const packageJson = require("../package.json");
+const commomConfig = require("./webpack.commom");
+const { dependencies } = require("../package.json");
 
 const domain = process.env.PRODUCTION_DOMAIN;
 
@@ -16,9 +16,9 @@ const prodConfig = {
       remotes: {
         marketing: `marketing@${domain}/marketing/remoteEntry.js`,
       },
-      shared: packageJson.dependencies,
+      shared: dependencies,
     }),
   ],
 };
 
-module.exports = merge(commonConfig, prodConfig);
+module.exports = merge{commomConfig, prodConfig}
