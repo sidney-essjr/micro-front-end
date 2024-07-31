@@ -16,14 +16,14 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: List top-level directory
-        run: ls -la
+      # - name: List top-level directory
+      #   run: ls -la
 
-      - name: List packages directory
-        run: ls -la packages
+      # - name: List packages directory
+      #   run: ls -la packages
 
-      - name: List container directory
-        run: ls -la packages/container
+      # - name: List container directory
+      #   run: ls -la packages/container
 
       - name: Install dependencies
         run: npm install
