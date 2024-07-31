@@ -22,7 +22,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubunto-latest
+    runs-on: ubuntu-latest
     environment: container
 
     steps:
