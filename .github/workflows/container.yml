@@ -10,6 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: container
 
     steps:
       - name: Check out repository
@@ -31,27 +32,6 @@ jobs:
       - name: Build a project
         run: npm run build
         working-directory: packages/container
-
-      - name: List build output
-        run: ls -la packages/container/dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment: container
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-
-      - name: List top-level directory
-        run: ls -la
-
-      - name: List packages directory
-        run: ls -la packages
-
-      - name: List container directory
-        run: ls -la packages/container
 
       - name: List build output
         run: ls -la packages/container/dist
