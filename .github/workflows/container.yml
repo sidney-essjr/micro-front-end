@@ -9,16 +9,21 @@ on:
 
 defaults:
   run:
-    working-directory: packages/container
+    working-directory: ./packages/container
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - run: npm install
-      - run: npm run build
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build a project
+        run: npm run build
 
   deploy:
     needs: build
