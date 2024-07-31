@@ -53,6 +53,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: container
 
     steps:
       - name: Check out repository
@@ -75,12 +76,12 @@ jobs:
         run: npm run build
         working-directory: packages/container
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment: container
+      # deploy:
+      #   needs: build
+      #   runs-on: ubuntu-latest
 
-    steps:
+      #   steps:
+
       - name: Check out repository
         uses: actions/checkout@v2
 
