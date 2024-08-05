@@ -1,0 +1,41 @@
+name: deploy-dashboard
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "packages/dashboard/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: container
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: packages/dashboard
+
+      - name: Build a project
+        run: npm run build
+        working-directory: packages/dashboard
+
+      - name: Sync to S3
+        run: |
+          aws s3 sync packages/dashboard/dist s3://${{ secrets.AWS_S3_BUCKET_NAME}}/dashboard/latest
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+
+      - name: Create invalidation in cloundfront for index.html
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUITION_ID }} --paths "/dashboard/latest/remoteEntry.js"
+
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
