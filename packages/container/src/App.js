@@ -1,4 +1,4 @@
-import { createGenerateClassName, StylesProvider } from "@material-ui/core";
+import { StylesProvider, createGenerateClassName } from "@material-ui/core";
 import React, { lazy, Suspense, useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
